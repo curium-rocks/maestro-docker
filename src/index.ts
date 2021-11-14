@@ -81,6 +81,17 @@ ProviderSingleton.getInstance().setLoggerFacade(maestroOptions.logger);
 const maestro:IMaestro = new Maestro(maestroOptions);
 maestro.start();
 
+const logger = getLoggerFacade('maestro-heartbeat');
+const heartbeatTimer = setInterval(() => {
+    logger.debug('heartbeat');
+}, 30000);
+
 process.on('SIGINT', async () => {
+    clearInterval(heartbeatTimer);
+    await maestro.disposeAsync();
+});
+
+process.on('SIGTERM', async () => {
+    clearInterval(heartbeatTimer);
     await maestro.disposeAsync();
 });
