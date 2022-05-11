@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@5220b231121b5b69d5effbe0d0e4770a68500a44
+        uses: docker/metadata-action@8d56fe93cf3fd680736a906389438c1ed74d75f7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Set up QEMU
